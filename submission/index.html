@@ -241,61 +241,14 @@ footer{
 
     <h2>Featured Collection</h2>
 
-    <div class="product-grid">
-
-        <div class="card">
-            <img src="Pictures/Urban Sneakers.jpeg" alt="">
-            <h3>Urban Sneakers</h3>
-            <p>ksh 3500</p>
-            <button onclick="addToCart('Urban Sneakers')">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <img src="Pictures/official dark tan.jpeg" alt="">
-            <h3>Executive Leather</h3>
-            <p>ksh 4500</p>
-            <button onclick="addToCart('Executive Leather')">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <img src="Pictures/Performance Runner.jpeg" alt="">
-            <h3>Performance Runner</h3>
-            <p>ksh 3500</p>
-            <button onclick="addToCart('Performance Runner')">Add to Cart</button>
-        </div>
-
-    </div>
-
+    <div class="product-grid" id="featured-grid"></div>
 </section>
 
 <section id="new-arrivals" class="products">
 
     <h2>New Arrivals</h2>
 
-    <div class="product-grid">
-
-        <div class="card">
-            <img src="Pictures/clogs.jpeg" alt="">
-            <h3>clogs</h3>
-            <p>ksh 1500</p>
-            <button onclick="addToCart('Air Flex Pro')">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <img src="Pictures/Brown sandles.jpeg" alt="">
-            <h3>Sandles</h3>
-            <p>ksh2000</p>
-            <button onclick="addToCart('Street Elite')">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <img src="Pictures/Black leather leather shoes.jpeg" alt="">
-            <h3>Black leather</h3>
-            <p>ksh3000</p>
-            <button onclick="addToCart('Velocity X')">Add to Cart</button>
-        </div>
-
-    </div>
+    <div class="product-grid" id="new-arrivals-grid"></div>
 
 </section>
 
@@ -309,11 +262,7 @@ footer{
     <p>© 2026 Elite Shoes. All Rights Reserved.</p>
 </footer>
 
-<script>
-function addToCart(product){
-    alert(product + " added to cart!");
-}
-</script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
