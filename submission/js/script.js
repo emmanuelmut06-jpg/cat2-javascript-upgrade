@@ -40,3 +40,35 @@ function renderProducts(productArray, containerId) {
 // Render both sections on page load
 renderProducts(featuredProducts, "featured-grid");
 renderProducts(newArrivals, "new-arrivals-grid");
+
+// WISHLIST FEATURE
+const wishlistInput = document.getElementById("wishlist-input");
+const wishlistAddBtn = document.getElementById("wishlist-add-btn");
+const wishlistItems = document.getElementById("wishlist-items");
+
+wishlistAddBtn.addEventListener("click", () => {
+  const itemName = wishlistInput.value.trim();
+
+  if (itemName === "") {
+    return; // don't add empty items
+  }
+
+  addWishlistItem(itemName);
+  wishlistInput.value = ""; // clear input after adding
+});
+
+function addWishlistItem(name) {
+  const li = document.createElement("li");
+  li.textContent = name;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove";
+  removeBtn.className = "remove-btn";
+
+  removeBtn.addEventListener("click", () => {
+    li.remove();
+  });
+
+  li.appendChild(removeBtn);
+  wishlistItems.appendChild(li);
+}

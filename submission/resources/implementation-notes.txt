@@ -1,0 +1,14 @@
+1. LOOP-RENDERED DYNAMIC CONTENT
+---------------------------------
+- Two arrays of objects created: `featuredProducts` and `newArrivals`,
+  each holding shoe data (name, price, image).
+- A reusable function, renderProducts(productArray, containerId), loops
+  through each array using forEach() and builds a product card for
+  every item using createElement() and appendChild().
+- Each card's "Add to Cart" button gets its click handler attached via
+  addEventListener() inside the loop (instead of inline onclick, which
+  is not allowed).
+- Two empty containers in the HTML (#featured-grid and
+  #new-arrivals-grid) are targeted separately, so the same render
+  function handles both the Featured Collection and New Arrivals
+  sections without duplicating code.
