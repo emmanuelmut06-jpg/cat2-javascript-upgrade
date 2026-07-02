@@ -12,3 +12,15 @@
   #new-arrivals-grid) are targeted separately, so the same render
   function handles both the Featured Collection and New Arrivals
   sections without duplicating code.
+  DYNAMIC ADD & REMOVE ELEMENTS (WISHLIST)
+---------------------------------------------
+- A wishlist section lets the user type a shoe name into an input and
+  click "Add to Wishlist."
+- On click, the value is read using .value and trimmed to prevent
+  empty/blank entries.
+- addWishlistItem() creates a new <li> using createElement(), builds a
+  "Remove" button inside it, and appends the whole thing to the list
+  using appendChild().
+- Each Remove button has its own click listener that calls
+  li.remove(), deleting that specific wishlist item from the DOM when
+  clicked.
