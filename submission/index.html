@@ -267,14 +267,57 @@ footer{
     <p id="form-feedback"></p>
 </section>
 
-<section id="wishlist" class="products">
-  <h2>My Wishlist</h2>
-  <div class="wishlist-form">
-    <input type="text" id="wishlist-input" placeholder="Enter shoe name...">
-    <button id="wishlist-add-btn" class="btn">Add to Wishlist</button>
-  </div>
-  <ul id="wishlist-items"></ul>
-</section>
+// WISHLIST FEATURE (with localStorage persistence)
+const wishlistInput = document.getElementById("wishlist-input");
+const wishlistAddBtn = document.getElementById("wishlist-add-btn");
+const wishlistItems = document.getElementById("wishlist-items");
+
+// Load saved wishlist from localStorage, or start empty
+let savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+// Render whatever was saved, as soon as the page loads
+savedWishlist.forEach(name => addWishlistItem(name, false));
+
+wishlistAddBtn.addEventListener("click", () => {
+  const itemName = wishlistInput.value.trim();
+
+  if (itemName === "") {
+    return;
+  }
+
+  addWishlistItem(itemName, true);
+  wishlistInput.value = "";
+});
+
+function addWishlistItem(name, saveToStorage) {
+  const li = document.createElement("li");
+  li.textContent = name;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove";
+  removeBtn.className = "remove-btn";
+
+  removeBtn.addEventListener("click", () => {
+    li.remove();
+    removeFromStorage(name);
+  });
+
+  li.appendChild(removeBtn);
+  wishlistItems.appendChild(li);
+
+  if (saveToStorage) {
+    savedWishlist.push(name);
+    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
+  }
+}
+
+function removeFromStorage(name) {
+  const index = savedWishlist.indexOf(name);
+  if (index !== -1) {
+    savedWishlist.splice(index, 1);
+    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
+  }
+}
 
 <footer>
     <p>© 2026 Elite Shoes. All Rights Reserved.</p>

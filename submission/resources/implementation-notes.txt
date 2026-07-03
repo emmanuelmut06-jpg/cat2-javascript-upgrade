@@ -24,3 +24,16 @@
 - Each Remove button has its own click listener that calls
   li.remove(), deleting that specific wishlist item from the DOM when
   clicked.
+  FORM HANDLING WITH VALIDATION FEEDBACK
+--------------------------------------------
+- The Contact section now includes a real form (name, email, message)
+  instead of static text.
+- On submit, event.preventDefault() stops the default page reload so
+  JS can handle validation itself.
+- Each field's value is read using .value and trimmed to check for
+  empty input.
+- If any field is empty, or the email doesn't look valid (missing "@"
+  or "."), an error message is written into #form-feedback using
+  textContent, styled red.
+- If all checks pass, a personalized success message is shown in
+  green, and the form is cleared using contactForm.reset().
