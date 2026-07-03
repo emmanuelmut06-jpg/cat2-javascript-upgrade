@@ -41,23 +41,27 @@ function renderProducts(productArray, containerId) {
 renderProducts(featuredProducts, "featured-grid");
 renderProducts(newArrivals, "new-arrivals-grid");
 
-// WISHLIST FEATURE
+// ==========================
+// FEATURE 2 & 4: WISHLIST (add/remove + localStorage persistence)
+// ==========================
 const wishlistInput = document.getElementById("wishlist-input");
 const wishlistAddBtn = document.getElementById("wishlist-add-btn");
 const wishlistItems = document.getElementById("wishlist-items");
 
+// ⭐ FEATURE 4: Load saved wishlist from localStorage when the page opens
+let savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+// ⭐ FEATURE 4: Re-display whatever was saved, immediately on page load
+savedWishlist.forEach(name => addWishlistItem(name, false));
+
 wishlistAddBtn.addEventListener("click", () => {
   const itemName = wishlistInput.value.trim();
-
-  if (itemName === "") {
-    return; // don't add empty items
-  }
-
-  addWishlistItem(itemName);
-  wishlistInput.value = ""; // clear input after adding
+  if (itemName === "") return;
+  addWishlistItem(itemName, true);
+  wishlistInput.value = "";
 });
 
-function addWishlistItem(name) {
+function addWishlistItem(name, saveToStorage) {
   const li = document.createElement("li");
   li.textContent = name;
 
@@ -67,39 +71,29 @@ function addWishlistItem(name) {
 
   removeBtn.addEventListener("click", () => {
     li.remove();
+    removeFromStorage(name);
   });
 
   li.appendChild(removeBtn);
   wishlistItems.appendChild(li);
+
+  // ⭐ FEATURE 4: Save the new item into localStorage
+  if (saveToStorage) {
+    savedWishlist.push(name);
+    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
+  }
 }
 
-// CONTACT FORM VALIDATION
-const contactForm = document.getElementById("contact-form");
-const formFeedback = document.getElementById("form-feedback");
-
-contactForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // stop the page from reloading
-
-  const name = document.getElementById("contact-name").value.trim();
-  const email = document.getElementById("contact-email").value.trim();
-  const message = document.getElementById("contact-message").value.trim();
-
-  // Basic validation checks
-  if (name === "" || email === "" || message === "") {
-    formFeedback.textContent = "Please fill in all fields before sending.";
-    formFeedback.style.color = "red";
-    return;
+// ⭐ FEATURE 4: Keep localStorage in sync when an item is removed
+function removeFromStorage(name) {
+  const index = savedWishlist.indexOf(name);
+  if (index !== -1) {
+    savedWishlist.splice(index, 1);
+    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
   }
+}
+const heroBanner = document.getElementById("hero-banner");
 
-  if (!email.includes("@") || !email.includes(".")) {
-    formFeedback.textContent = "Please enter a valid email address.";
-    formFeedback.style.color = "red";
-    return;
-  }
-
-  // If everything passes:
-  formFeedback.textContent = "Thanks, " + name + "! Your message has been received.";
-  formFeedback.style.color = "lightgreen";
-
-  contactForm.reset(); // clear the form after successful submit
+heroBanner.addEventListener("click", () => {
+  heroBanner.classList.toggle("show-caption");
 });

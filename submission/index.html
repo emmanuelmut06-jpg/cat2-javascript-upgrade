@@ -4,215 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Shoes</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#0f172a;
-    color:white;
-}
-
-/* Navbar */
-nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:rgba(15,23,42,.95);
-    backdrop-filter:blur(10px);
-    z-index:1000;
-}
-
-.logo{
-    font-size:1.8rem;
-    font-weight:700;
-    color:#38bdf8;
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:30px;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    font-size:1rem;
-    transition:.3s;
-}
-
-nav a:hover{
-    color:#38bdf8;
-}
-
-section,
-header{
-    scroll-margin-top:90px;
-}
-
-/* Hero */
-.hero{
-    height:100vh;
-    background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("Pictures/Elite logo.jpeg");
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.hero-content h1{
-    font-size:4rem;
-    margin-bottom:15px;
-}
-
-.hero-content p{
-    font-size:1.3rem;
-    color:#e2e8f0;
-    margin-bottom:30px;
-}
-
-.btn{
-    display:inline-block;
-    padding:15px 35px;
-    text-decoration:none;
-    color:white;
-    border-radius:50px;
-    background:linear-gradient(135deg,#38bdf8,#2563eb);
-    box-shadow:0 0 25px rgba(56,189,248,.6);
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 0 40px rgba(56,189,248,.9);
-}
-
-/* Products */
-.products{
-    padding:100px 8%;
-}
-
-.products h2{
-    text-align:center;
-    font-size:2.5rem;
-    margin-bottom:50px;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.card{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(12px);
-    border-radius:20px;
-    overflow:hidden;
-    transition:.4s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
-
-.card img{
-    width:100%;
-    height:280px;
-    object-fit:cover;
-}
-
-.card h3{
-    padding:20px 20px 10px;
-}
-
-.card p{
-    padding:0 20px;
-    color:#38bdf8;
-    font-weight:bold;
-}
-
-.card button{
-    width:calc(100% - 40px);
-    margin:20px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    color:white;
-    cursor:pointer;
-    background:linear-gradient(135deg,#38bdf8,#2563eb);
-    transition:.3s;
-}
-
-.card button:hover{
-    opacity:.9;
-}
-
-/* Contact Banner */
-.banner{
-    text-align:center;
-    padding:100px 20px;
-    background:linear-gradient(135deg,#2563eb,#38bdf8);
-}
-
-.banner h2{
-    margin-bottom:20px;
-    font-size:2.5rem;
-}
-
-.banner p{
-    margin:10px 0;
-}
-
-/* Footer */
-footer{
-    background:#020617;
-    text-align:center;
-    padding:25px;
-    color:#94a3b8;
-}
-
-/* Mobile */
-@media(max-width:768px){
-
-    nav{
-        flex-direction:column;
-        gap:15px;
-    }
-
-    nav ul{
-        gap:15px;
-    }
-
-    .hero-content h1{
-        font-size:2.7rem;
-    }
-
-    .products h2{
-        font-size:2rem;
-    }
-}
-</style>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -228,28 +20,24 @@ footer{
 </nav>
 
 <header id="home">
-    <div class="hero">
+    <div class="hero" id="hero-banner">
         <div class="hero-content">
             <h1>Step Into Confidence</h1>
             <p>Premium Men's Footwear Crafted for Style, Comfort & Performance.</p>
             <a href="#collection" class="btn">Shop Now</a>
+            <p id="hero-caption" class="hidden-caption">Handpicked styles, delivered with Elite Shoes quality since day one.</p>
         </div>
     </div>
 </header>
 
 <section id="collection" class="products">
-
     <h2>Featured Collection</h2>
-
     <div class="product-grid" id="featured-grid"></div>
 </section>
 
 <section id="new-arrivals" class="products">
-
     <h2>New Arrivals</h2>
-
     <div class="product-grid" id="new-arrivals-grid"></div>
-
 </section>
 
 <section id="contact" class="banner">
@@ -267,57 +55,14 @@ footer{
     <p id="form-feedback"></p>
 </section>
 
-// WISHLIST FEATURE (with localStorage persistence)
-const wishlistInput = document.getElementById("wishlist-input");
-const wishlistAddBtn = document.getElementById("wishlist-add-btn");
-const wishlistItems = document.getElementById("wishlist-items");
-
-// Load saved wishlist from localStorage, or start empty
-let savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-// Render whatever was saved, as soon as the page loads
-savedWishlist.forEach(name => addWishlistItem(name, false));
-
-wishlistAddBtn.addEventListener("click", () => {
-  const itemName = wishlistInput.value.trim();
-
-  if (itemName === "") {
-    return;
-  }
-
-  addWishlistItem(itemName, true);
-  wishlistInput.value = "";
-});
-
-function addWishlistItem(name, saveToStorage) {
-  const li = document.createElement("li");
-  li.textContent = name;
-
-  const removeBtn = document.createElement("button");
-  removeBtn.textContent = "Remove";
-  removeBtn.className = "remove-btn";
-
-  removeBtn.addEventListener("click", () => {
-    li.remove();
-    removeFromStorage(name);
-  });
-
-  li.appendChild(removeBtn);
-  wishlistItems.appendChild(li);
-
-  if (saveToStorage) {
-    savedWishlist.push(name);
-    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
-  }
-}
-
-function removeFromStorage(name) {
-  const index = savedWishlist.indexOf(name);
-  if (index !== -1) {
-    savedWishlist.splice(index, 1);
-    localStorage.setItem("wishlist", JSON.stringify(savedWishlist));
-  }
-}
+<section id="wishlist" class="products">
+    <h2>My Wishlist</h2>
+    <div class="wishlist-form">
+        <input type="text" id="wishlist-input" placeholder="Enter shoe name...">
+        <button id="wishlist-add-btn" class="btn">Add to Wishlist</button>
+    </div>
+    <ul id="wishlist-items"></ul>
+</section>
 
 <footer>
     <p>© 2026 Elite Shoes. All Rights Reserved.</p>

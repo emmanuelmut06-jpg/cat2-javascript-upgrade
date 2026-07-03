@@ -1,6 +1,6 @@
+IMPLEMENTATION NOTES – Elite Shoes CAT 2
 1. LOOP-RENDERED DYNAMIC CONTENT
----------------------------------
-- Two arrays of objects created: `featuredProducts` and `newArrivals`,
+- Two arrays of objects created: featuredProducts and newArrivals,
   each holding shoe data (name, price, image).
 - A reusable function, renderProducts(productArray, containerId), loops
   through each array using forEach() and builds a product card for
@@ -12,8 +12,8 @@
   #new-arrivals-grid) are targeted separately, so the same render
   function handles both the Featured Collection and New Arrivals
   sections without duplicating code.
-  DYNAMIC ADD & REMOVE ELEMENTS (WISHLIST)
----------------------------------------------
+
+2. DYNAMIC ADD & REMOVE ELEMENTS (WISHLIST)
 - A wishlist section lets the user type a shoe name into an input and
   click "Add to Wishlist."
 - On click, the value is read using .value and trimmed to prevent
@@ -24,9 +24,9 @@
 - Each Remove button has its own click listener that calls
   li.remove(), deleting that specific wishlist item from the DOM when
   clicked.
-  FORM HANDLING WITH VALIDATION FEEDBACK
---------------------------------------------
-- The Contact section now includes a real form (name, email, message)
+
+3. FORM HANDLING WITH VALIDATION FEEDBACK
+- The Contact section includes a real form (name, email, message)
   instead of static text.
 - On submit, event.preventDefault() stops the default page reload so
   JS can handle validation itself.
@@ -37,3 +37,25 @@
   textContent, styled red.
 - If all checks pass, a personalized success message is shown in
   green, and the form is cleared using contactForm.reset().
+
+4. PERSISTENT STATE WITH LOCALSTORAGE
+- The wishlist feature persists across page reloads using
+  localStorage.
+- On page load, JSON.parse(localStorage.getItem("wishlist")) retrieves
+  any previously saved items (or starts as an empty array if none
+  exist yet).
+- Every time an item is added, it's pushed into the savedWishlist
+  array and saved with localStorage.setItem(), using
+  JSON.stringify() to convert the array into a storable string.
+- When an item is removed, removeFromStorage() finds it in the array
+  with indexOf(), removes it with splice(), and re-saves the updated
+  array — so removed items stay gone after a refresh too.
+
+5. CLICK-TO-REVEAL ON BANNER
+- Clicking the hero banner (#hero-banner) toggles a "show-caption"
+  class on it using classList.toggle().
+- CSS hides a caption (.hidden-caption) by default, and only displays
+  it when the parent .hero has the "show-caption" class, using a
+  compound selector.
+- This creates a click-to-reveal effect on the banner without changing
+  its layout when the caption is hidden.
